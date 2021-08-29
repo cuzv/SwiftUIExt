@@ -1,4 +1,4 @@
-#if os(iOS) && canImport(SwiftUI) && canImport(MessageUI)
+#if os(iOS) && canImport(MessageUI)
 import SwiftUI
 import MessageUI
 

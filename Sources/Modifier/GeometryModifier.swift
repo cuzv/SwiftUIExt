@@ -1,4 +1,3 @@
-#if canImport(SwiftUI)
 import SwiftUI
 
 /// https://swiftwithmajid.com/2020/01/15/the-magic-of-view-preferences-in-swiftui/
@@ -58,4 +57,3 @@ extension View {
             .onPreferenceChange(GeometryModifier.FramePreferenceKey.self, perform: perform)
     }
 }
-#endif

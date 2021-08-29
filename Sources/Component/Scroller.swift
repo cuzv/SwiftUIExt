@@ -1,4 +1,3 @@
-#if canImport(SwiftUI)
 import SwiftUI
 
 /// https://swiftwithmajid.com/2020/09/24/mastering-scrollview-in-swiftui/
@@ -44,4 +43,3 @@ private struct ScrollOffsetPreferenceKey: PreferenceKey {
         value = nextValue()
     }
 }
-#endif

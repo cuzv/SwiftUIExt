@@ -1,4 +1,4 @@
-#if os(iOS) && canImport(SwiftUI)
+#if os(iOS)
 import SwiftUI
 
 /// https://swiftwithmajid.com/2020/03/04/customizing-toggle-in-swiftui/

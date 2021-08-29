@@ -1,4 +1,3 @@
-#if canImport(SwiftUI)
 import SwiftUI
 
 /// https://swiftwithmajid.com/2020/03/18/anchor-preferences-in-swiftui/
@@ -72,4 +71,3 @@ extension Grid {
         }
     }
 }
-#endif

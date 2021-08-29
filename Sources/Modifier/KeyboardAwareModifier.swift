@@ -1,4 +1,4 @@
-#if os(iOS) && canImport(Combine)
+#if os(iOS)
 import SwiftUI
 import Combine
 

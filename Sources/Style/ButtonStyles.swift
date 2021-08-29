@@ -1,4 +1,3 @@
-#if canImport(SwiftUI)
 import SwiftUI
 
 // https://swiftwithmajid.com/2019/08/28/composable-styling-in-swiftui/
@@ -93,4 +92,3 @@ extension SwiftUIExtensions {
         }
     }
 }
-#endif

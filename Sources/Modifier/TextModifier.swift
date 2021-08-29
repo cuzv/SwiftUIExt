@@ -1,4 +1,4 @@
-#if os(iOS) && canImport(SwiftUI)
+#if os(iOS)
 import SwiftUI
 
 // https://swiftwithmajid.com/2019/08/28/composable-styling-in-swiftui/

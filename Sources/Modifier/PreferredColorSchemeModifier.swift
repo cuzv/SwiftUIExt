@@ -1,4 +1,3 @@
-#if canImport(SwiftUI)
 import SwiftUI
 
 /// https://github.com/rizwankce/SwiftUIColorSchemeTest
@@ -23,4 +22,3 @@ extension View {
         modifier(PreferredColorSchemeModifier(colorScheme: colorScheme))
     }
 }
-#endif
