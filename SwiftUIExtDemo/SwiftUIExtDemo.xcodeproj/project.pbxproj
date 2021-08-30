@@ -15,6 +15,7 @@
 		F989236F26DC8BBE009F29D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F989235926DC8BBE009F29D5 /* Assets.xcassets */; };
 		F989237B26DC8C43009F29D5 /* SwiftUIExt in Frameworks */ = {isa = PBXBuildFile; productRef = F989237A26DC8C43009F29D5 /* SwiftUIExt */; };
 		F989237D26DC8C49009F29D5 /* SwiftUIExt in Frameworks */ = {isa = PBXBuildFile; productRef = F989237C26DC8C49009F29D5 /* SwiftUIExt */; };
+		F989237F26DCAF29009F29D5 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = F989237E26DCAEEB009F29D5 /* Root.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		F989236826DC8BBE009F29D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F989236926DC8BBE009F29D5 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		F989237826DC8C09009F29D5 /* SwiftUIExt */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftUIExt; path = ..; sourceTree = "<group>"; };
+		F989237E26DCAEEB009F29D5 /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				F989236126DC8BBE009F29D5 /* Info.plist */,
+				F989237E26DCAEEB009F29D5 /* Root.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 			files = (
 				F989236C26DC8BBE009F29D5 /* ContentView.swift in Sources */,
 				F989236A26DC8BBE009F29D5 /* SwiftUIExtDemoApp.swift in Sources */,
+				F989237F26DCAF29009F29D5 /* Root.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
