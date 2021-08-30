@@ -4,14 +4,17 @@ import SwiftUI
 public struct Spinner: View {
     private let backgroundColor: Color
     private let foregroundColor: Color
+    private let lineWidth: CGFloat
     @State private var rotation: Double = 0
 
     public init(
         circleColor: Color = Color(.gray),
-        lineColor: Color = Color(.green)
+        lineColor: Color = Color(.green),
+        lineWidth: CGFloat = 4
     ) {
         self.backgroundColor = circleColor
         self.foregroundColor = lineColor
+        self.lineWidth = lineWidth
     }
 
     public var body: some View {
@@ -22,7 +25,6 @@ public struct Spinner: View {
             startAngle: .zero,
             endAngle: .degrees(360)
         )
-        let lineWidth: CGFloat = 4
         let animation = Animation
             .linear(duration: 1.5)
             .repeatForever(autoreverses: false)
