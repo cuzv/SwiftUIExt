@@ -4,28 +4,28 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftUIExt",
-    platforms: [
-        .iOS(.v13),
-        .macOS(.v10_15),
-        .tvOS(.v13),
-        .watchOS(.v6),
-    ],
-    products: [
-        .library(
-            name: "SwiftUIExt",
-            targets: ["SwiftUIExt"]
-        ),
-    ],
-    dependencies: [
-    ],
-    targets: [
-        .target(
-            name: "SwiftUIExt",
-            dependencies: [
-            ],
-            path: "Sources"
-        ),
-    ],
-    swiftLanguageVersions: [.v5]
+  name: "SwiftUIExt",
+  platforms: [
+    .iOS(.v13),
+    .macOS(.v10_15),
+    .tvOS(.v13),
+    .watchOS(.v6),
+  ],
+  products: [
+    .library(
+      name: "SwiftUIExt",
+      targets: ["SwiftUIExt"]
+    ),
+  ],
+  dependencies: [
+  ],
+  targets: [
+    .target(
+      name: "SwiftUIExt",
+      dependencies: [
+      ],
+      path: "Sources"
+    ),
+  ],
+  swiftLanguageVersions: [.v5]
 )
