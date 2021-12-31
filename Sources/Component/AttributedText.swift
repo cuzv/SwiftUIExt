@@ -22,7 +22,7 @@ public struct AttributedText: View {
           )
         }
       )
-      .if(box.width > 0) {
+      .applyIf(box.width > 0) {
         $0.frame(width: box.width, height: box.height)
       }
       .onPreferenceChange(SizedTextPreferenceKey.self) { value in

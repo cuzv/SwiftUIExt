@@ -2,6 +2,8 @@ import SwiftUI
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, macCatalyst 13.0, *)
 extension View {
+  // MARK: - Embed
+
   public func embedInButton(action: @escaping () -> Void) -> Button<Self> {
     Button(action: action) {
       self
@@ -26,8 +28,34 @@ extension View {
     }
   }
 
+  @available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, macCatalyst 14.0, *)
+  public func embedInLazyHStack(justify: HorizontalAlignment = .leading) -> some View {
+    LazyHStack {
+      if [.trailing, .center].contains(justify) {
+        Spacer()
+      }
+      self
+      if [.leading, .center].contains(justify) {
+        Spacer()
+      }
+    }
+  }
+
   public func embedInVStack(justify: VerticalAlignment = .top) -> some View {
     VStack {
+      if [.bottom, .center].contains(justify) {
+        Spacer()
+      }
+      self
+      if [.top, .center].contains(justify) {
+        Spacer()
+      }
+    }
+  }
+
+  @available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, macCatalyst 14.0, *)
+  public func embedInLazyVStack(justify: VerticalAlignment = .top) -> some View {
+    LazyVStack {
       if [.bottom, .center].contains(justify) {
         Spacer()
       }
@@ -55,6 +83,8 @@ extension View {
       }
     }
   }
+
+  // MARK: -
 
   public func eraseToAnyView() -> AnyView {
     AnyView(self)
@@ -106,8 +136,11 @@ extension View {
       }
   }
 
+  /// Why Conditional View Modifiers are a Bad Idea
+  ///
+  /// https://www.objc.io/blog/2021/08/24/conditional-view-modifiers/
   @ViewBuilder
-  public func `if`<Transform: View>(
+  public func applyIf<Transform: View>(
     _ condition: @autoclosure () -> Bool,
     transform: (Self) -> Transform
   ) -> some View {
@@ -118,8 +151,11 @@ extension View {
     }
   }
 
+  /// Why Conditional View Modifiers are a Bad Idea
+  ///
+  /// https://www.objc.io/blog/2021/08/24/conditional-view-modifiers/
   @ViewBuilder
-  public func get<Transform: View, T>(
+  public func applyGotten<Transform: View, T>(
     _ getter: @autoclosure () -> T?,
     transform: (Self, T) -> Transform
   ) -> some View {
