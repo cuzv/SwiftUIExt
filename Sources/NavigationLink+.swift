@@ -31,7 +31,7 @@ extension NavigationLink where Label == EmptyView {
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 extension View {
-  /// Bug: iOS 14.5 no push animation
+  @available(*, deprecated, message: "iOS 14.5+ has no push animation, use NavigationLink.init(destination:tag:selection:) or NavigationLink.init(destination:label:) instead.")
   public func navigation<V: Identifiable, Destination: View>(
     item: Binding<V?>,
     destination: @escaping (V) -> Destination

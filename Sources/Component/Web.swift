@@ -25,21 +25,21 @@ public struct Web: UIViewRepresentable {
   public func makeUIView(context: Context) -> WKWebView {
     let contentController = WKUserContentController()
     let scriptSource = """
-            (function getImgElements() {
-              var regex = RegExp('Google Play');
-              var imgs = document.getElementsByTagName("img");
-              var to = setTimeout(function(){ getImgElements() }, 100);
-              if (imgs.length > 0) {
-                clearTimeout(to)
-                for (let img of imgs) {
-                  console.log(img)
-                  if (regex.test(img.alt)) {
-                    img.parentElement.style.display = "none"
-                  }
-                }
-              }
-            })()
-            """
+      (function getImgElements() {
+        var regex = RegExp('Google Play');
+        var imgs = document.getElementsByTagName("img");
+        var to = setTimeout(function(){ getImgElements() }, 100);
+        if (imgs.length > 0) {
+          clearTimeout(to)
+          for (let img of imgs) {
+            console.log(img)
+            if (regex.test(img.alt)) {
+              img.parentElement.style.display = "none"
+            }
+          }
+        }
+      })()
+      """
     let script = WKUserScript(source: scriptSource, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
     contentController.addUserScript(script)
 
