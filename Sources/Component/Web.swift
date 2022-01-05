@@ -7,19 +7,24 @@ import Combine
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 public struct Web: UIViewRepresentable {
   public typealias UIViewType = WKWebView
+  public typealias NavigationActionHandler = (WKWebView, WKNavigationAction, WKWebpagePreferences) async -> WKNavigationActionPolicy
+  public typealias NavigationResponseHandler = (WKWebView, WKNavigationResponse) async -> WKNavigationResponsePolicy
 
   private let url: URL
   private let progress: ((Double) -> Void)?
-  private let decidePolicyForNavigationResponse: ((WKWebView, WKNavigationResponse, @escaping (WKNavigationResponsePolicy) -> Void) -> Void)?
+  private let navigationAction: NavigationActionHandler?
+  private let navigationResponse: NavigationResponseHandler?
 
   public init(
     url: URL,
     progress: ((Double) -> Void)? = nil,
-    decidePolicyForNavigationResponse: ((WKWebView, WKNavigationResponse, @escaping (WKNavigationResponsePolicy) -> Void) -> Void)? = nil
+    navigationAction: NavigationActionHandler? = nil,
+    navigationResponse: NavigationResponseHandler? = nil
   ) {
     self.url = url
     self.progress = progress
-    self.decidePolicyForNavigationResponse = decidePolicyForNavigationResponse
+    self.navigationAction = navigationAction
+    self.navigationResponse = navigationResponse
   }
 
   public func makeUIView(context: Context) -> WKWebView {
@@ -84,25 +89,35 @@ public struct Web: UIViewRepresentable {
 
     public func webView(
       _ webView: WKWebView,
-      decidePolicyFor navigationResponse: WKNavigationResponse,
-      decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
-    ) {
-      if let handler = base.decidePolicyForNavigationResponse {
-        handler(webView, navigationResponse, decisionHandler)
-      } else {
-        decisionHandler(.allow)
-      }
-    }
-
-    @available(iOS 13.0, *)
-    public func webView(
-      _ webView: WKWebView,
       decidePolicyFor navigationAction: WKNavigationAction,
       preferences: WKWebpagePreferences,
       decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void
     ) {
       preferences.preferredContentMode = .mobile
-      decisionHandler(.allow, preferences)
+
+      if let handler = base.navigationAction {
+        Task {
+          let policy = await handler(webView, navigationAction, preferences)
+          decisionHandler(policy, preferences)
+        }
+      } else {
+        decisionHandler(.allow, preferences)
+      }
+    }
+
+    public func webView(
+      _ webView: WKWebView,
+      decidePolicyFor navigationResponse: WKNavigationResponse,
+      decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
+    ) {
+      if let handler = base.navigationResponse {
+        Task {
+          let policy = await handler(webView, navigationResponse)
+          decisionHandler(policy)
+        }
+      } else {
+        decisionHandler(.allow)
+      }
     }
   }
 }
