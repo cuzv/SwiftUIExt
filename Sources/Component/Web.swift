@@ -96,7 +96,7 @@ public struct Web: UIViewRepresentable {
       preferences.preferredContentMode = .mobile
 
       if let handler = base.navigationAction {
-        Task {
+        Task { @MainActor in
           let policy = await handler(webView, navigationAction, preferences)
           decisionHandler(policy, preferences)
         }
@@ -111,7 +111,7 @@ public struct Web: UIViewRepresentable {
       decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
     ) {
       if let handler = base.navigationResponse {
-        Task {
+        Task { @MainActor in
           let policy = await handler(webView, navigationResponse)
           decisionHandler(policy)
         }
