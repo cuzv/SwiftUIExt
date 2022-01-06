@@ -87,38 +87,35 @@ public struct Web: UIViewRepresentable {
       self.base = base
     }
 
+    @MainActor
     public func webView(
       _ webView: WKWebView,
       decidePolicyFor navigationAction: WKNavigationAction,
-      preferences: WKWebpagePreferences,
-      decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void
-    ) {
+      preferences: WKWebpagePreferences
+    ) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
       preferences.preferredContentMode = .mobile
 
       if let handler = base.navigationAction {
-        Task { @MainActor in
-          let policy = await handler(webView, navigationAction, preferences)
-          decisionHandler(policy, preferences)
-        }
+        let policy = await handler(webView, navigationAction, preferences)
+        return (policy, preferences)
       } else {
-        decisionHandler(.allow, preferences)
+        return (.allow, preferences)
       }
     }
 
+    @MainActor
     public func webView(
       _ webView: WKWebView,
-      decidePolicyFor navigationResponse: WKNavigationResponse,
-      decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void
-    ) {
+      decidePolicyFor navigationResponse: WKNavigationResponse
+    ) async -> WKNavigationResponsePolicy {
       if let handler = base.navigationResponse {
-        Task { @MainActor in
-          let policy = await handler(webView, navigationResponse)
-          decisionHandler(policy)
-        }
+        let policy = await handler(webView, navigationResponse)
+        return policy
       } else {
-        decisionHandler(.allow)
+        return .allow
       }
     }
   }
 }
+
 #endif
