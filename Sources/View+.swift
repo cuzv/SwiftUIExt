@@ -100,23 +100,6 @@ extension View {
     }
   }
 
-  @ViewBuilder
-  public func navigation<Destination: View>(
-    isActive: Binding<Bool>? = nil,
-    destination: @autoclosure @escaping () -> Destination
-  ) -> some View {
-    if let isActive = isActive {
-      NavigationLink(
-        destination: LazyView(content: destination()),
-        isActive: isActive
-      ) { self }
-    } else {
-      NavigationLink(
-        destination: LazyView(content: destination())
-      ) { self }
-    }
-  }
-
   public func adaptiveHeight(
     alignment: VerticalAlignment,
     cacheHeight: Binding<CGFloat>
