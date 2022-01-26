@@ -167,6 +167,23 @@ extension View {
   }
 }
 
+@available(iOS, deprecated: 15.0, message: "Use the built-in APIs instead")
+extension View {
+  public func background<T: View>(
+    alignment: Alignment = .center,
+    @ViewBuilder content: () -> T
+  ) -> some View {
+    background(Group(content: content), alignment: alignment)
+  }
+
+  public func overlay<T: View>(
+    alignment: Alignment = .center,
+    @ViewBuilder content: () -> T
+  ) -> some View {
+    overlay(Group(content: content), alignment: alignment)
+  }
+}
+
 #if os(iOS)
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 extension View {
