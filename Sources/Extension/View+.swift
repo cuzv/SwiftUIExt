@@ -148,6 +148,17 @@ extension View {
       self
     }
   }
+
+  @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, macCatalyst 15.0, *)
+  func animatableForeground(_ color: Color) -> some View {
+    overlay(
+      Rectangle()
+        .fill(color)
+    )
+    .mask {
+      blendMode(.overlay)
+    }
+  }
 }
 
 @available(iOS, deprecated: 15.0, message: "Use the built-in APIs instead")
