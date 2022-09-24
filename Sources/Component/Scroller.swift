@@ -38,8 +38,5 @@ public struct Scroller<Content: View>: View {
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 private struct ScrollOffsetPreferenceKey: PreferenceKey {
   static var defaultValue: CGPoint = .zero
-
-  static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {
-    value = nextValue()
-  }
+  static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {}
 }
