@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct Padding: View {
+public struct Blank: View {
   let width: CGFloat?
   let height: CGFloat?
   let alignment: Alignment

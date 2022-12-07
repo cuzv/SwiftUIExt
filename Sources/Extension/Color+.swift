@@ -64,6 +64,7 @@ extension Color {
   ///
   /// Use this color to fill medium-size shapes, such as the background of a switch.
   public static let secondaryFill: Color = .init(.secondarySystemFill)
+
   /// An overlay fill color for large shapes.
   ///
   /// Use system fill colors for items situated on top of an existing background color.
