@@ -3,41 +3,49 @@ import SwiftUI
 
 /// https://www.swiftbysundell.com/articles/building-an-async-swiftui-button/
 public struct AsyncButton<Label: View>: View {
-  private let actionOptions: Set<ActionOption>
-  private let action: () async -> Void
+  private let options: Set<ActionOption>
+  private let action: () async throws -> Void
+  private let onError: (any Error) -> Void
   @ViewBuilder private let label: () -> Label
   
   @State private var isDisabled = false
   @State private var showProgressView = false
   
   public init(
-    actionOptions: Set<ActionOption> = Set(ActionOption.allCases),
-    action: @escaping () async -> Void,
+    options: Set<ActionOption> = Set(ActionOption.allCases),
+    action: @escaping () async throws -> Void,
+    error: @escaping (any Error) -> Void = { _ in },
     @ViewBuilder label: @escaping () -> Label
   ) {
-    self.actionOptions = actionOptions
+    self.options = options
     self.action = action
+    self.onError = error
     self.label = label
   }
   
   public var body: some View {
     Button(
       action: {
-        if actionOptions.contains(.disableButton) {
+        if options.contains(.disableButton) {
           isDisabled = true
         }
         
         Task {
           var progressViewTask: Task<Void, Error>?
           
-          if actionOptions.contains(.showProgressView) {
+          if options.contains(.showProgressView) {
             progressViewTask = Task {
-              try await Task.sleep(nanoseconds: 150_000_000)
+              try await Task.sleep(nanoseconds: 100_000_000)
               showProgressView = true
             }
           }
-          
-          await action()
+
+          do {
+            try await action()
+          } catch {
+            onError(error)
+          }
+
           progressViewTask?.cancel()
           
           isDisabled = false
@@ -71,20 +79,20 @@ extension AsyncButton {
 extension AsyncButton where Label == Text {
   public init(
     _ titleKey: LocalizedStringKey,
-    actionOptions: Set<ActionOption> = Set(ActionOption.allCases),
-    action: @escaping () async -> Void
+    options: Set<ActionOption> = Set(ActionOption.allCases),
+    action: @escaping () async throws -> Void
   ) {
-    self.init(actionOptions: actionOptions, action: action) {
+    self.init(options: options, action: action) {
       Text(titleKey)
     }
   }
   
   public init<S: StringProtocol>(
     _ title: S,
-    actionOptions: Set<ActionOption> = Set(ActionOption.allCases),
-    action: @escaping () async -> Void
+    options: Set<ActionOption> = Set(ActionOption.allCases),
+    action: @escaping () async throws -> Void
   ) {
-    self.init(actionOptions: actionOptions, action: action) {
+    self.init(options: options, action: action) {
       Text(title)
     }
   }
