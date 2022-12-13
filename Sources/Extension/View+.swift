@@ -16,8 +16,8 @@ extension View {
     }
   }
 
-  public func embedInHStack(justify: HorizontalAlignment = .leading) -> some View {
-    HStack {
+  public func embedInHStack(justify: HorizontalAlignment = .leading, spacing: CGFloat? = nil) -> some View {
+    HStack(spacing: spacing) {
       if [.trailing, .center].contains(justify) {
         Spacer()
       }
@@ -29,8 +29,8 @@ extension View {
   }
 
   @available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, macCatalyst 14.0, *)
-  public func embedInLazyHStack(justify: HorizontalAlignment = .leading) -> some View {
-    LazyHStack {
+  public func embedInLazyHStack(justify: HorizontalAlignment = .leading, spacing: CGFloat? = nil) -> some View {
+    LazyHStack(spacing: spacing) {
       if [.trailing, .center].contains(justify) {
         Spacer()
       }
@@ -41,8 +41,8 @@ extension View {
     }
   }
 
-  public func embedInVStack(justify: VerticalAlignment = .top) -> some View {
-    VStack {
+  public func embedInVStack(justify: VerticalAlignment = .top, spacing: CGFloat? = nil) -> some View {
+    VStack(spacing: spacing) {
       if [.bottom, .center].contains(justify) {
         Spacer()
       }
@@ -54,8 +54,8 @@ extension View {
   }
 
   @available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, macCatalyst 14.0, *)
-  public func embedInLazyVStack(justify: VerticalAlignment = .top) -> some View {
-    LazyVStack {
+  public func embedInLazyVStack(justify: VerticalAlignment = .top, spacing: CGFloat? = nil) -> some View {
+    LazyVStack(spacing: spacing) {
       if [.bottom, .center].contains(justify) {
         Spacer()
       }
