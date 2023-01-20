@@ -22,6 +22,16 @@ extension Color {
     }
     self.init(red: Double(r) / 255, green: Double(g) / 255, blue: Double(b) / 255, opacity: Double(a) / 255)
   }
+
+  /// 0x3300cc or 0x30c
+  public init(hex: UInt32, opacity: Double = 1) {
+    let short = hex <= 0xfff
+    let divisor: CGFloat = short ? 15 : 255
+    let red   = CGFloat(short  ? (hex & 0xF00) >> 8 : (hex & 0xFF0000) >> 16) / divisor
+    let green = CGFloat(short  ? (hex & 0x0F0) >> 4 : (hex & 0xFF00)   >> 8)  / divisor
+    let blue  = CGFloat(short  ? (hex & 0x00F)      : (hex & 0xFF))           / divisor
+    self.init(red: red, green: green, blue: blue, opacity: opacity)
+  }
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)

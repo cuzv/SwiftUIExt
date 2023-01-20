@@ -1,7 +1,7 @@
 import SwiftUI
 
-@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 /// template & text should have the same font.
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 public struct DynamicText: View {
   private let template: Text
   private let text: Text
