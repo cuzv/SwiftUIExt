@@ -4,15 +4,15 @@ import SwiftUI
 ///
 /// Checkout https://swiftwithmajid.com/2022/12/06/building-custom-layout-in-swiftui-spacing/
 @available(iOS 16.0, *)
-struct FlowLayout: Layout {
-  var spacing: CGFloat? = nil
+public struct FlowLayout: Layout {
+  public var spacing: CGFloat? = nil
 
-  struct Cache {
-    var sizes: [CGSize] = []
-    var spacing: [CGFloat] = []
+  public struct Cache {
+    public var sizes: [CGSize] = []
+    public var spacing: [CGFloat] = []
   }
 
-  func makeCache(subviews: Subviews) -> Cache {
+  public func makeCache(subviews: Subviews) -> Cache {
     let sizes = subviews.map { $0.sizeThatFits(.unspecified) }
     let spacing: [CGFloat] = subviews.indices.map { index in
       guard index != subviews.count - 1 else {
@@ -28,11 +28,11 @@ struct FlowLayout: Layout {
     return Cache(sizes: sizes, spacing: spacing)
   }
 
-  func updateCache(_ cache: inout Cache, subviews: Subviews) {
+  public func updateCache(_ cache: inout Cache, subviews: Subviews) {
     cache.sizes = subviews.map { $0.sizeThatFits(.unspecified) }
   }
 
-  func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout Cache) -> CGSize {
+  public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout Cache) -> CGSize {
     var totalHeight = 0.0
     var totalWidth = 0.0
 
@@ -57,7 +57,7 @@ struct FlowLayout: Layout {
     return .init(width: totalWidth, height: totalHeight)
   }
 
-  func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout Cache) {
+  public func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout Cache) {
     var lineX = bounds.minX
     var lineY = bounds.minY
     var lineHeight: CGFloat = 0
