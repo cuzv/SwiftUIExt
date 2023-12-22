@@ -1,7 +1,8 @@
-//  Created by Shaw on 3/2/22.
-
 import SwiftUI
 
+#if os(iOS)
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 extension UIHostingController {
   /// https://gist.github.com/steipete/da72299613dcc91e8d729e48b4bb582c
   convenience public init(rootView: Content, ignoreSafeArea: Bool) {
@@ -40,3 +41,5 @@ extension UIHostingController {
     }
   }
 }
+
+#endif

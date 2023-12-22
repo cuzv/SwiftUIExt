@@ -3,7 +3,7 @@ import SwiftUI
 /// Building custom layout in SwiftUI
 ///
 /// Checkout https://swiftwithmajid.com/2022/12/06/building-custom-layout-in-swiftui-spacing/
-@available(iOS 16.0, *)
+@available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, macCatalyst 16.0, *)
 public struct FlowLayout: Layout {
   public var spacing: CGFloat? = nil
 

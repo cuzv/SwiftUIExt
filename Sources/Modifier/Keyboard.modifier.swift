@@ -1,7 +1,7 @@
-#if os(iOS)
 import SwiftUI
 import Combine
 
+#if os(iOS) || os(tvOS) || os(watchOS)
 /// https://swiftwithmajid.com/2019/11/27/combine-and-swiftui-views/
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 struct KeyboardAwareModifier: ViewModifier {
@@ -27,11 +27,15 @@ struct KeyboardAwareModifier: ViewModifier {
       }
   }
 }
+#endif
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
-  public func keyboardAwarePadding() -> some View {
+public extension View {
+  func keyboardAwarePadding() -> some View {
+#if os(iOS) || os(tvOS) || os(watchOS)
     ModifiedContent(content: self, modifier: KeyboardAwareModifier())
+#else
+    self
+#endif
   }
 }
-#endif

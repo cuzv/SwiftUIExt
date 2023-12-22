@@ -9,7 +9,7 @@ public struct Spinner: View {
 
   public init(
     circleColor: Color = Color(.gray),
-    lineColor: Color = Color(.green),
+    lineColor: Color = Color(.blue),
     lineWidth: CGFloat = 4
   ) {
     self.backgroundColor = circleColor

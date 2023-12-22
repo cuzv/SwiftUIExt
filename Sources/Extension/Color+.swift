@@ -1,9 +1,8 @@
-#if os(iOS)
 import SwiftUI
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension Color {
-  public init(hex: String) {
+public extension Color {
+  init(hex: String) {
     let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
     var int = UInt64()
     Scanner(string: hex).scanHexInt64(&int)
@@ -24,7 +23,7 @@ extension Color {
   }
 
   /// 0x3300cc or 0x30c
-  public init(hex: UInt32, opacity: Double = 1) {
+  init(hex: UInt32, opacity: Double = 1) {
     let short = hex <= 0xfff
     let divisor: CGFloat = short ? 15 : 255
     let red   = CGFloat(short  ? (hex & 0xF00) >> 8 : (hex & 0xFF0000) >> 16) / divisor
@@ -32,30 +31,34 @@ extension Color {
     let blue  = CGFloat(short  ? (hex & 0x00F)      : (hex & 0xFF))           / divisor
     self.init(red: red, green: green, blue: blue, opacity: opacity)
   }
+
+  static var random: Color {
+    .init(red: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1))
+  }
 }
 
-@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension Color {
-  public static var random: Color { .init(red: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1)) }
+#if os(macOS)
 
+@available(macOS 10.10, *)
+public extension Color {
   // MARK: - Label Colors
 
   /// The color for text labels that contain primary content.
-  public static let label: Color = .init(.label)
+  static let label: Color = .init(.labelColor)
   /// The color for text labels that contain secondary content.
-  public static let secondaryLabel: Color = .init(.secondaryLabel)
+  static let secondaryLabel: Color = .init(.secondaryLabelColor)
   /// The color for text labels that contain tertiary content.
-  public static let tertiaryLabel: Color = .init(.tertiaryLabel)
+  static let tertiaryLabel: Color = .init(.tertiaryLabelColor)
 
   // MARK: - Texts Colors
 
   /// The color for placeholder text in controls or text views.
-  public static let placeholderText: Color = .init(.placeholderText)
+  static let placeholderText: Color = .init(.placeholderTextColor)
 
   // MARK: - Link Colors
 
   /// The color for links.
-  public static let link: Color = .init(.link)
+  static let link: Color = .init(.linkColor)
 
   // MARK: - Fill Colors
 
@@ -65,7 +68,8 @@ extension Color {
   /// System fill colors incorporate transparency to allow the background color to show through.
   ///
   /// Use this color to fill thin or small shapes, such as the track of a slider.
-  public static let fill: Color = .init(.systemFill)
+  @available(macOS 14.0, *)
+  static let fill: Color = .init(nsColor: .systemFill)
 
   /// An overlay fill color for medium-size shapes.
   ///
@@ -73,7 +77,8 @@ extension Color {
   /// System fill colors incorporate transparency to allow the background color to show through.
   ///
   /// Use this color to fill medium-size shapes, such as the background of a switch.
-  public static let secondaryFill: Color = .init(.secondarySystemFill)
+  @available(macOS 14.0, *)
+  static let secondaryFill: Color = .init(nsColor: .secondarySystemFill)
 
   /// An overlay fill color for large shapes.
   ///
@@ -81,7 +86,8 @@ extension Color {
   /// System fill colors incorporate transparency to allow the background color to show through.
   ///
   /// Use this color to fill large shapes, such as input fields, search bars, or buttons.
-  public static let tertiaryFill: Color = .init(.tertiarySystemFill)
+  @available(macOS 14.0, *)
+  static let tertiaryFill: Color = .init(nsColor: .tertiarySystemFill)
 
   /// An overlay fill color for large areas that contain complex content.
   ///
@@ -89,25 +95,31 @@ extension Color {
   /// System fill colors incorporate transparency to allow the background color to show through.
   ///
   /// Use this color to fill large areas that contain complex content, such as an expanded table cell.
-  public static let quaternaryFill: Color = .init(.quaternarySystemFill)
+  @available(macOS 14.0, *)
+  static let quaternaryFill: Color = .init(nsColor: .quaternarySystemFill)
 
   // MARK: - Background Colors
 
-  /// The color for the main background of your interface.
-  public static let background: Color = .init(.systemBackground)
-  /// The color for content layered on top of the main background.
-  public static let secondaryBackground: Color = .init(.secondarySystemBackground)
-  /// The color for content layered on top of secondary backgrounds.
-  public static let tertiaryBackground: Color = .init(.tertiarySystemBackground)
+  /// Background for windows. This should not be used for drawing, and NSVisualEffectMaterialWindowBackground should be used instead.
+  static let windowBackground: Color = .init(.windowBackgroundColor)
 
-  // MARK: - Grouped Background Colors
+  /// Background areas revealed behind documents. This should not be used for drawing, and NSVisualEffectMaterialUnderPageBackground should be used instead.
+  static let underPageBackground: Color = .init(.underPageBackgroundColor)
 
-  /// The color for the main background of your grouped interface.
-  public static let groupedBackground: Color = .init(.systemGroupedBackground)
-  /// The color for content layered on top of the main background of your grouped interface.
-  public static let secondaryGroupedBackground: Color = .init(.secondarySystemGroupedBackground)
-  /// The color for content layered on top of secondary backgrounds of your grouped interface.
-  public static let tertiaryGroupedBackground: Color = .init(.tertiarySystemGroupedBackground)
+  /// Background for content areas: scroll views, table views, collection views. This should not be used for drawing, and NSVisualEffectMaterialContentBackground should be used instead.
+  static let controlBackground: Color = .init(.controlBackgroundColor)
+
+  /// The background color of selected and emphasized (focused) content: table views rows, collection views, etc. Alias for +alternateSelectedControlColor
+  @available(macOS 10.14, *)
+  static let selectedContentBackground: Color = .init(.selectedContentBackgroundColor)
+
+  /// The background color of selected and unemphasized content: table views rows, collection views, etc. Alias for +secondarySelectedControlColor
+  @available(macOS 10.14, *)
+  static let unemphasizedSelectedContentBackground: Color = .init(.unemphasizedSelectedContentBackgroundColor)
+
+  /// Background color of find indicators: the bubbles that show inline search result hits
+  @available(macOS 10.14, *)
+  static let findHighlight: Color = .init(.findHighlightColor)
 
   // MARK: - Separators
 
@@ -115,11 +127,104 @@ extension Color {
   ///
   /// This color may be partially transparent to allow the underlying content to show through.
   /// It adapts to the underlying trait environment.
-  public static let separator: Color = .init(.separator)
+  @available(macOS 10.14, *)
+  static let separator: Color = .init(.separatorColor)
+
+  static let grid: Color = .init(.gridColor)
+}
+
+@available(macOS 10.10, *)
+public extension Color {
+  static let background: Color = windowBackground
+}
+
+#else
+
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
+public extension Color {
+  // MARK: - Label Colors
+
+  /// The color for text labels that contain primary content.
+  static let label: Color = .init(.label)
+  /// The color for text labels that contain secondary content.
+  static let secondaryLabel: Color = .init(.secondaryLabel)
+  /// The color for text labels that contain tertiary content.
+  static let tertiaryLabel: Color = .init(.tertiaryLabel)
+
+  // MARK: - Texts Colors
+
+  /// The color for placeholder text in controls or text views.
+  static let placeholderText: Color = .init(.placeholderText)
+
+  // MARK: - Link Colors
+
+  /// The color for links.
+  static let link: Color = .init(.link)
+
+  // MARK: - Fill Colors
+
+  /// An overlay fill color for thin and small shapes.
+  ///
+  /// Use system fill colors for items situated on top of an existing background color.
+  /// System fill colors incorporate transparency to allow the background color to show through.
+  ///
+  /// Use this color to fill thin or small shapes, such as the track of a slider.
+  static let fill: Color = .init(.systemFill)
+
+  /// An overlay fill color for medium-size shapes.
+  ///
+  /// Use system fill colors for items situated on top of an existing background color.
+  /// System fill colors incorporate transparency to allow the background color to show through.
+  ///
+  /// Use this color to fill medium-size shapes, such as the background of a switch.
+  static let secondaryFill: Color = .init(.secondarySystemFill)
+
+  /// An overlay fill color for large shapes.
+  ///
+  /// Use system fill colors for items situated on top of an existing background color.
+  /// System fill colors incorporate transparency to allow the background color to show through.
+  ///
+  /// Use this color to fill large shapes, such as input fields, search bars, or buttons.
+  static let tertiaryFill: Color = .init(.tertiarySystemFill)
+
+  /// An overlay fill color for large areas that contain complex content.
+  ///
+  /// Use system fill colors for items situated on top of an existing background color.
+  /// System fill colors incorporate transparency to allow the background color to show through.
+  ///
+  /// Use this color to fill large areas that contain complex content, such as an expanded table cell.
+  static let quaternaryFill: Color = .init(.quaternarySystemFill)
+
+  // MARK: - Background Colors
+
+  /// The color for the main background of your interface.
+  static let background: Color = .init(.systemBackground)
+  /// The color for content layered on top of the main background.
+  static let secondaryBackground: Color = .init(.secondarySystemBackground)
+  /// The color for content layered on top of secondary backgrounds.
+  static let tertiaryBackground: Color = .init(.tertiarySystemBackground)
+
+  // MARK: - Grouped Background Colors
+
+  /// The color for the main background of your grouped interface.
+  static let groupedBackground: Color = .init(.systemGroupedBackground)
+  /// The color for content layered on top of the main background of your grouped interface.
+  static let secondaryGroupedBackground: Color = .init(.secondarySystemGroupedBackground)
+  /// The color for content layered on top of secondary backgrounds of your grouped interface.
+  static let tertiaryGroupedBackground: Color = .init(.tertiarySystemGroupedBackground)
+
+  // MARK: - Separators
+
+  /// The color for thin borders or divider lines that allows some underlying content to be visible.
+  ///
+  /// This color may be partially transparent to allow the underlying content to show through.
+  /// It adapts to the underlying trait environment.
+  static let separator: Color = .init(.separator)
 
   /// The color for borders or divider lines that hides any underlying content.
   ///
   /// This color is always opaque. It adapts to the underlying trait environment.
-  public static let opaqueSeparator: Color = .init(.opaqueSeparator)
+  static let opaqueSeparator: Color = .init(.opaqueSeparator)
 }
+
 #endif

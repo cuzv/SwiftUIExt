@@ -1,98 +1,26 @@
 import SwiftUI
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, macCatalyst 13.0, *)
-extension View {
-  // MARK: - Embed
-
-  public func embedInButton(action: @escaping () -> Void) -> Button<Self> {
+public extension View {
+  func inButton(action: @escaping () -> Void) -> Button<Self> {
     Button(action: action) {
       self
     }
   }
 
-  public func embedInNavigation() -> NavigationView<Self> {
-    NavigationView {
+  func inList() -> some View {
+    List {
       self
     }
   }
 
-  public func embedInHStack(justify: HorizontalAlignment = .leading, spacing: CGFloat? = nil) -> some View {
-    HStack(spacing: spacing) {
-      if [.trailing, .center].contains(justify) {
-        Spacer()
-      }
-      self
-      if [.leading, .center].contains(justify) {
-        Spacer()
-      }
-    }
-  }
-
-  @available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, macCatalyst 14.0, *)
-  public func embedInLazyHStack(justify: HorizontalAlignment = .leading, spacing: CGFloat? = nil) -> some View {
-    LazyHStack(spacing: spacing) {
-      if [.trailing, .center].contains(justify) {
-        Spacer()
-      }
-      self
-      if [.leading, .center].contains(justify) {
-        Spacer()
-      }
-    }
-  }
-
-  public func embedInVStack(justify: VerticalAlignment = .top, spacing: CGFloat? = nil) -> some View {
-    VStack(spacing: spacing) {
-      if [.bottom, .center].contains(justify) {
-        Spacer()
-      }
-      self
-      if [.top, .center].contains(justify) {
-        Spacer()
-      }
-    }
-  }
-
-  @available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, macCatalyst 14.0, *)
-  public func embedInLazyVStack(justify: VerticalAlignment = .top, spacing: CGFloat? = nil) -> some View {
-    LazyVStack(spacing: spacing) {
-      if [.bottom, .center].contains(justify) {
-        Spacer()
-      }
-      self
-      if [.top, .center].contains(justify) {
-        Spacer()
-      }
-    }
-  }
-
-  public func embedInScrollView(_ axis: Axis.Set = .vertical, showsIndicators: Bool = true) -> ScrollView<Self> {
-    ScrollView(axis, showsIndicators: showsIndicators) {
-      self
-    }
-  }
-
-  public func embedInScrollView(alignment: Alignment = .center) -> some View {
-    GeometryReader { geometry in
-      ScrollView {
-        frame(
-          minHeight: geometry.size.height,
-          maxHeight: .infinity,
-          alignment: alignment
-        )
-      }
-    }
-  }
-
-  // MARK: -
-
-  public func eraseToAnyView() -> AnyView {
+  func eraseToAnyView() -> AnyView {
     AnyView(self)
   }
 
   @available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, macCatalyst 14.0, *)
   @ViewBuilder
-  public func unredacted(when condition: Bool) -> some View {
+  func unredacted(when condition: Bool) -> some View {
     if condition {
       unredacted()
     } else {
@@ -100,7 +28,7 @@ extension View {
     }
   }
 
-  public func adaptiveHeight(
+  func adaptiveHeight(
     alignment: VerticalAlignment,
     cacheHeight: Binding<CGFloat>
   ) -> some View {
@@ -123,7 +51,7 @@ extension View {
   ///
   /// https://www.objc.io/blog/2021/08/24/conditional-view-modifiers/
   @ViewBuilder
-  public func applyIf<Transform: View>(
+  func applyIf<Transform: View>(
     _ condition: @autoclosure () -> Bool,
     transform: (Self) -> Transform
   ) -> some View {
@@ -138,7 +66,7 @@ extension View {
   ///
   /// https://www.objc.io/blog/2021/08/24/conditional-view-modifiers/
   @ViewBuilder
-  public func applyGotten<Transform: View, T>(
+  func applyGotten<Transform: View, T>(
     _ getter: @autoclosure () -> T?,
     transform: (Self, T) -> Transform
   ) -> some View {
@@ -161,22 +89,25 @@ extension View {
   }
 }
 
-@available(iOS, deprecated: 15.0, message: "Use the built-in APIs instead")
-extension View {
-  public func background<T: View>(
-    alignment: Alignment = .center,
-    @ViewBuilder content: () -> T
-  ) -> some View {
-    background(Group(content: content), alignment: alignment)
-  }
+// extension View {
+//   @backDeployed(before: iOS 15.0)
+//   @available(iOS 13.0, *)
+//   public func background<T: View>(
+//     alignment: Alignment = .center,
+//     @ViewBuilder content: () -> T
+//   ) -> some View {
+//     background(Group(content: content), alignment: alignment)
+//   }
 
-  public func overlay<T: View>(
-    alignment: Alignment = .center,
-    @ViewBuilder content: () -> T
-  ) -> some View {
-    overlay(Group(content: content), alignment: alignment)
-  }
-}
+//   @backDeployed(before: iOS 15.0)
+//   @available(iOS 13.0, *)
+//   public func overlay<T: View>(
+//     alignment: Alignment = .center,
+//     @ViewBuilder content: () -> T
+//   ) -> some View {
+//     overlay(Group(content: content), alignment: alignment)
+//   }
+// }
 
 #if os(iOS)
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
@@ -196,13 +127,15 @@ extension View {
     }
   }
 }
+#endif
 
 public extension View {
   func endEditing() {
+#if os(iOS)
     UIApplication.shared.sendAction(
       #selector(UIResponder.resignFirstResponder),
       to: nil, from: nil, for: nil
     )
+#endif
   }
 }
-#endif
