@@ -1,3 +1,4 @@
+#if os(iOS)
 import SwiftUI
 
 @available(iOS 15.0, *)
@@ -15,3 +16,4 @@ public extension View {
     return vc
   }
 }
+#endif
