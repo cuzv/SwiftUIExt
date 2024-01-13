@@ -9,10 +9,10 @@ public struct BottomSheet<Content: View>: View {
   private let content: Content
 
   public init(isOpen: Binding<Bool>, maxHeight: CGFloat, @ViewBuilder content: () -> Content) {
-    self.minHeight = maxHeight * constants.minHeightRatio
+    minHeight = maxHeight * constants.minHeightRatio
     self.maxHeight = maxHeight
     self.content = content()
-    self._isOpen = isOpen
+    _isOpen = isOpen
   }
 
   public var body: some View {

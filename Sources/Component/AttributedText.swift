@@ -28,11 +28,12 @@ public struct AttributedText: View {
       .onPreferenceChange(SizedTextPreferenceKey.self) { value in
         // minimize updates
         if
-          value.size.width > 0 &&
-            value.size.height > 0 &&
-            (value.size.width != box.width ||
-              value.size.height != box.height) {
-          self.box = value.size
+          value.size.width > 0,
+          value.size.height > 0,
+          value.size.width != box.width ||
+          value.size.height != box.height
+        {
+          box = value.size
         }
       }
   }

@@ -7,10 +7,10 @@ public struct AsyncButton<Label: View>: View {
   private let action: () async throws -> Void
   private let onError: (any Error) -> Void
   @ViewBuilder private let label: () -> Label
-  
+
   @State private var isDisabled = false
   @State private var showProgressView = false
-  
+
   public init(
     options: Set<ActionOption> = Set(ActionOption.allCases),
     action: @escaping () async throws -> Void,
@@ -19,20 +19,20 @@ public struct AsyncButton<Label: View>: View {
   ) {
     self.options = options
     self.action = action
-    self.onError = error
+    onError = error
     self.label = label
   }
-  
+
   public var body: some View {
     Button(
       action: {
         if options.contains(.disableButton) {
           isDisabled = true
         }
-        
+
         Task {
           var progressViewTask: Task<Void, Error>?
-          
+
           if options.contains(.showProgressView) {
             progressViewTask = Task {
               try await Task.sleep(nanoseconds: 100_000_000)
@@ -47,7 +47,7 @@ public struct AsyncButton<Label: View>: View {
           }
 
           progressViewTask?.cancel()
-          
+
           isDisabled = false
           showProgressView = false
         }
@@ -55,7 +55,7 @@ public struct AsyncButton<Label: View>: View {
       label: {
         ZStack {
           label().opacity(showProgressView ? 0 : 1)
-          
+
           if showProgressView {
             if #available(iOS 14.0, *) {
               ProgressView()
@@ -69,15 +69,15 @@ public struct AsyncButton<Label: View>: View {
   }
 }
 
-extension AsyncButton {
-  public enum ActionOption: CaseIterable {
+public extension AsyncButton {
+  enum ActionOption: CaseIterable {
     case disableButton
     case showProgressView
   }
 }
 
-extension AsyncButton where Label == Text {
-  public init(
+public extension AsyncButton where Label == Text {
+  init(
     _ titleKey: LocalizedStringKey,
     options: Set<ActionOption> = Set(ActionOption.allCases),
     action: @escaping () async throws -> Void
@@ -86,9 +86,9 @@ extension AsyncButton where Label == Text {
       Text(titleKey)
     }
   }
-  
-  public init<S: StringProtocol>(
-    _ title: S,
+
+  init(
+    _ title: some StringProtocol,
     options: Set<ActionOption> = Set(ActionOption.allCases),
     action: @escaping () async throws -> Void
   ) {

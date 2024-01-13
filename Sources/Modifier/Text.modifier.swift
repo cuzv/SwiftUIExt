@@ -30,9 +30,9 @@ struct ContentModifier: ViewModifier {
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
+public extension View {
   @ViewBuilder
-  public func textModifier(_ modifier: SwiftUIExtensions.TextModifier) -> some View {
+  func textModifier(_ modifier: SwiftUIExtensions.TextModifier) -> some View {
     switch modifier {
     case let .title(value):
       ModifiedContent(
@@ -55,8 +55,8 @@ extension View {
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension SwiftUIExtensions {
-  public enum TextModifier {
+public extension SwiftUIExtensions {
+  enum TextModifier {
     case title(Title)
     case content(Content)
 

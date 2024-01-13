@@ -36,7 +36,7 @@ public struct Table<
 
   public var body: some View {
     Group {
-      if let data = data {
+      if let data {
         if data.isEmpty {
           placeholder()
         } else {
@@ -58,7 +58,7 @@ public struct Table<
   }
 
   @ViewBuilder
-  private func lazyStack<Content: View>(content: () -> Content) -> some View {
+  private func lazyStack(content: () -> some View) -> some View {
     if axis == .vertical {
       LazyVStack(spacing: 10, content: content)
     } else {

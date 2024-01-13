@@ -5,7 +5,7 @@ import SwiftUI
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 extension UIHostingController {
   /// https://gist.github.com/steipete/da72299613dcc91e8d729e48b4bb582c
-  convenience public init(rootView: Content, ignoreSafeArea: Bool) {
+  public convenience init(rootView: Content, ignoreSafeArea: Bool) {
     self.init(rootView: rootView)
 
     if ignoreSafeArea {
@@ -19,8 +19,7 @@ extension UIHostingController {
     let viewSubclassName = String(cString: class_getName(viewClass)).appending("_IgnoreSafeArea")
     if let viewSubclass = NSClassFromString(viewSubclassName) {
       object_setClass(view, viewSubclass)
-    }
-    else {
+    } else {
       guard let viewClassNameUtf8 = (viewSubclassName as NSString).utf8String else { return }
       guard let viewSubclass = objc_allocateClassPair(viewClass, viewClassNameUtf8, 0) else { return }
 

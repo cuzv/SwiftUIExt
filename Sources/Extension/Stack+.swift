@@ -17,7 +17,7 @@ public extension View {
       }
     }
   }
-  
+
   func inVStack(
     justify: VerticalAlignment = .top,
     alignment: HorizontalAlignment = .center,
@@ -52,7 +52,7 @@ public extension View {
       }
     }
   }
-  
+
   func inLazyVStack(
     justify: VerticalAlignment = .top,
     alignment: HorizontalAlignment = .center,

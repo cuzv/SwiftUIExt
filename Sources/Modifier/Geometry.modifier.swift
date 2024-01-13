@@ -46,13 +46,13 @@ struct GeometryModifier: ViewModifier {
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
-  public func onSizeChange(perform: @escaping (CGSize) -> Void) -> some View {
+public extension View {
+  func onSizeChange(perform: @escaping (CGSize) -> Void) -> some View {
     ModifiedContent(content: self, modifier: GeometryModifier(preferenceKey: .size))
       .onPreferenceChange(GeometryModifier.SizePreferenceKey.self, perform: perform)
   }
 
-  public func onFrameChange(perform: @escaping (CGRect) -> Void) -> some View {
+  func onFrameChange(perform: @escaping (CGRect) -> Void) -> some View {
     ModifiedContent(content: self, modifier: GeometryModifier(preferenceKey: .frame))
       .onPreferenceChange(GeometryModifier.FramePreferenceKey.self, perform: perform)
   }

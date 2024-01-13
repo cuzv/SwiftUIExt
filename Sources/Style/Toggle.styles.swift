@@ -5,7 +5,7 @@ import SwiftUI
 @available(macOS 11.0, iOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 struct CheckboxToggleStyle: ToggleStyle {
   func makeBody(configuration: Configuration) -> some View {
-    return HStack {
+    HStack {
       configuration.label
       Spacer()
       Image(systemName: configuration.isOn ? "checkmark.square" : "square")
@@ -17,9 +17,9 @@ struct CheckboxToggleStyle: ToggleStyle {
 }
 
 @available(macOS 11.0, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
+public extension View {
   @ViewBuilder
-  public func toggleStyle(_ style: SwiftUIExtensions.ToggleStyle) -> some View {
+  func toggleStyle(_ style: SwiftUIExtensions.ToggleStyle) -> some View {
     switch style {
     case .switch:
       self
@@ -30,8 +30,8 @@ extension View {
 }
 
 @available(macOS 11.0, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension SwiftUIExtensions {
-  public enum ToggleStyle {
+public extension SwiftUIExtensions {
+  enum ToggleStyle {
     case `switch`
     case checkbox
   }

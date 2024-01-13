@@ -14,16 +14,16 @@ struct PaddingModifier: ViewModifier {
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
-  public func padding(_ horizontal: CGFloat, _ vertical: CGFloat) -> some View {
+public extension View {
+  func padding(_ horizontal: CGFloat, _ vertical: CGFloat) -> some View {
     padding(horizontal, horizontal, vertical, vertical)
   }
 
-  public func padding(_ padding: SwiftUIExtensions.Padding) -> some View {
+  func padding(_ padding: SwiftUIExtensions.Padding) -> some View {
     modifier(PaddingModifier(padding: padding))
   }
 
-  public func padding(_ leading: CGFloat, _ trailing: CGFloat, _ top: CGFloat, _ bottom: CGFloat) -> some View {
+  func padding(_ leading: CGFloat, _ trailing: CGFloat, _ top: CGFloat, _ bottom: CGFloat) -> some View {
     ModifiedContent(
       content: self,
       modifier: PaddingModifier(

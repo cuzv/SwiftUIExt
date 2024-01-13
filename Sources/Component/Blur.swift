@@ -21,19 +21,18 @@ public struct Blur: UIViewRepresentable {
 
     NSLayoutConstraint.activate([
       blurView.heightAnchor.constraint(equalTo: view.heightAnchor),
-      blurView.widthAnchor.constraint(equalTo: view.widthAnchor)
+      blurView.widthAnchor.constraint(equalTo: view.widthAnchor),
     ])
 
     return view
   }
 
-  public func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<Blur>) {
-  }
+  public func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<Blur>) {}
 }
 
 @available(iOS 13.0, *)
-extension View {
-  public func blurBackground(style: UIBlurEffect.Style) -> some View {
+public extension View {
+  func blurBackground(style: UIBlurEffect.Style) -> some View {
     ZStack {
       Blur(style: style)
       self

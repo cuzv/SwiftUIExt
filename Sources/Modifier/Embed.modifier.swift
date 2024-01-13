@@ -15,8 +15,8 @@ struct EmbedInStackModifier: ViewModifier {
 }
 
 @available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, macCatalyst 14.0, *)
-extension Group where Content: View {
-  public func embedInStack() -> some View {
+public extension Group where Content: View {
+  func embedInStack() -> some View {
     modifier(EmbedInStackModifier())
   }
 }
@@ -36,8 +36,8 @@ struct EmbedInLazyStackModifier: ViewModifier {
 }
 
 @available(macOS 11.0, iOS 14.0, tvOS 14.0, watchOS 7.0, macCatalyst 14.0, *)
-extension Group where Content: View {
-  public func embedInLazyStack() -> some View {
+public extension Group where Content: View {
+  func embedInLazyStack() -> some View {
     modifier(EmbedInLazyStackModifier())
   }
 }

@@ -20,7 +20,7 @@ public struct FlowLayout: Layout {
       }
 
       return subviews[index].spacing.distance(
-        to: subviews[index+1].spacing,
+        to: subviews[index + 1].spacing,
         along: .horizontal
       )
     }

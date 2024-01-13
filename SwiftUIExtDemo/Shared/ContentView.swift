@@ -10,11 +10,11 @@ import SwiftUIExt
 
 struct ContentView: View {
   var body: some View {
-    #if os(iOS)
+#if os(iOS)
     Root()
-    #else
+#else
     FetchProgress()
-    #endif
+#endif
   }
 }
 

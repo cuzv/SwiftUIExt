@@ -1,12 +1,11 @@
 import SwiftUI
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-public enum SwiftUIExtensions {
-}
+public enum SwiftUIExtensions {}
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension SwiftUIExtensions {
-  public struct Padding {
+public extension SwiftUIExtensions {
+  struct Padding {
     let leading: CGFloat
     let trailing: CGFloat
     let top: CGFloat

@@ -15,7 +15,7 @@ public struct ActivityIndicator: UIViewRepresentable {
   ) {
     self.style = style
     self.color = color
-    self._isAnimating = isAnimating
+    _isAnimating = isAnimating
   }
 
   public func makeUIView(context: Context) -> UIActivityIndicatorView {

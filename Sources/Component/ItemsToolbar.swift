@@ -37,7 +37,6 @@ public struct ItemsToolbar: ToolbarContent {
           Text("Date").tag(1)
           Text("Location").tag(2)
         }
-
       }
       label: {
         Label("Add", systemImage: "plus")

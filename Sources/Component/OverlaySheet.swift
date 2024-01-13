@@ -1,6 +1,6 @@
 #if os(iOS)
-import UIKit
 import SwiftUI
+import UIKit
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 public struct OverlaySheet<Content: View>: View {
@@ -11,7 +11,7 @@ public struct OverlaySheet<Content: View>: View {
 
   public init(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
     self.isPresented = isPresented
-    self.makeContent = content
+    makeContent = content
   }
 
   public var body: some View {
@@ -32,17 +32,17 @@ public struct OverlaySheet<Content: View>: View {
       }
       .onEnded { state in
         if state.translation.height > 250 {
-          self.isPresented.wrappedValue = false
+          isPresented.wrappedValue = false
         }
       }
   }
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
-  public func overlaySheet<Content: View>(
+public extension View {
+  func overlaySheet(
     isPresented: Binding<Bool>,
-    @ViewBuilder content: @escaping () -> Content
+    @ViewBuilder content: @escaping () -> some View
   ) -> some View {
     overlay(
       OverlaySheet(isPresented: isPresented, content: content)

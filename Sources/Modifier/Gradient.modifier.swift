@@ -14,15 +14,16 @@ struct LinearGradientModifier: ViewModifier {
             LinearGradient(
               gradient: Gradient(colors: colors),
               startPoint: startPoint,
-              endPoint: endPoint)
+              endPoint: endPoint
+            )
           )
       )
   }
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
-  public func linearGradient(
+public extension View {
+  func linearGradient(
     colors: [Color],
     startPoint: UnitPoint = .topLeading,
     endPoint: UnitPoint = .bottomTrailing

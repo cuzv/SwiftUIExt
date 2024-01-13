@@ -46,9 +46,9 @@ struct LongPressStyle: PrimitiveButtonStyle {
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 14.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
+public extension View {
   @ViewBuilder
-  public func buttonStyle(_ style: SwiftUIExtensions.ButtonStyle) -> some View {
+  func buttonStyle(_ style: SwiftUIExtensions.ButtonStyle) -> some View {
     switch style {
     case let .outline(value):
       buttonStyle(OutlineStyle(padding: value.padding, cornerRadius: value.cornerRadius))
@@ -61,8 +61,8 @@ extension View {
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension SwiftUIExtensions {
-  public enum ButtonStyle {
+public extension SwiftUIExtensions {
+  enum ButtonStyle {
     case outline(Outline)
     case fill(Fill)
     case longPress

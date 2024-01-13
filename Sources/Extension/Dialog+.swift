@@ -2,13 +2,13 @@ import SwiftUI
 
 @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, macCatalyst 15.0, *)
 public extension View {
-  func confirmationDialog<A, M, T>(
+  func confirmationDialog<T>(
     _ titleKey: LocalizedStringKey,
     item: Binding<T?>,
     titleVisibility: Visibility = .automatic,
-    @ViewBuilder actions: (T) -> A,
-    @ViewBuilder message: (T) -> M
-  ) -> some View where A: View, M: View {
+    @ViewBuilder actions: (T) -> some View,
+    @ViewBuilder message: (T) -> some View
+  ) -> some View {
     confirmationDialog(
       titleKey,
       isPresented: Binding(
@@ -27,12 +27,12 @@ public extension View {
     )
   }
 
-  func confirmationDialog<A, T>(
+  func confirmationDialog<T>(
     _ title: Text,
     item: Binding<T?>,
     titleVisibility: Visibility = .automatic,
-    @ViewBuilder actions: (T) -> A
-  ) -> some View where A: View {
+    @ViewBuilder actions: (T) -> some View
+  ) -> some View {
     confirmationDialog(
       title,
       isPresented: Binding(
@@ -53,4 +53,3 @@ public extension View {
     )
   }
 }
-

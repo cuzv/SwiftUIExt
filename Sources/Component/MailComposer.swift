@@ -1,6 +1,6 @@
 #if os(iOS) && canImport(MessageUI)
-import SwiftUI
 import MessageUI
+import SwiftUI
 
 /// https://stackoverflow.com/questions/56784722/swiftui-send-email
 @available(iOS 13.0.0, *)
@@ -54,7 +54,7 @@ public struct MailComposer: UIViewControllerRepresentable {
   }
 
   public func makeCoordinator() -> Coordinator {
-    return Coordinator(
+    Coordinator(
       isShowing: $isShowing,
       result: $result
     )
@@ -64,10 +64,10 @@ public struct MailComposer: UIViewControllerRepresentable {
     let vc = MFMailComposeViewController()
     vc.mailComposeDelegate = context.coordinator
     vc.setToRecipients(recipients)
-    if let subject = subject {
+    if let subject {
       vc.setSubject(subject)
     }
-    if let messageBody = messageBody {
+    if let messageBody {
       vc.setMessageBody(messageBody, isHTML: false)
     }
     return vc
@@ -75,7 +75,7 @@ public struct MailComposer: UIViewControllerRepresentable {
 
   public func updateUIViewController(
     _ uiViewController: MFMailComposeViewController,
-    context: UIViewControllerRepresentableContext<MailComposer>) {
-  }
+    context: UIViewControllerRepresentableContext<MailComposer>
+  ) {}
 }
 #endif

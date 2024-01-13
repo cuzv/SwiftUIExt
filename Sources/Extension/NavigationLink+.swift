@@ -1,9 +1,9 @@
 import SwiftUI
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension NavigationLink where Label == EmptyView {
+public extension NavigationLink where Label == EmptyView {
   // See https://fivestars.blog/swiftui/programmatic-navigation.html
-  public init?<V: Identifiable>(
+  init?<V: Identifiable>(
     item: Binding<V?>,
     destination: @escaping (V) -> Destination
   ) {
@@ -30,15 +30,15 @@ extension NavigationLink where Label == EmptyView {
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension NavigationLink {
-  public init<V: View>(
+public extension NavigationLink {
+  init<V: View>(
     destination: @escaping @autoclosure () -> V,
     label: () -> Label
   ) where LazyView<V> == Destination {
     self.init(destination: LazyView(content: destination()), label: label)
   }
 
-  public init<T, V: View>(
+  init<T, V: View>(
     destination: @escaping @autoclosure () -> V,
     tag: T,
     selection: Binding<T?>
@@ -50,21 +50,21 @@ extension NavigationLink {
 // MARK: -
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
+public extension View {
   @available(*, deprecated, message: "iOS 14.5+ has no push animation, use NavigationLink.init(destination:tag:selection:) or NavigationLink.init(destination:label:) instead.")
-  public func navigation<V: Identifiable, Destination: View>(
+  func navigation<V: Identifiable>(
     item: Binding<V?>,
-    destination: @escaping (V) -> Destination
+    destination: @escaping (V) -> some View
   ) -> some View {
     background(NavigationLink(item: item, destination: destination))
   }
 
   @ViewBuilder
-  public func navigation<Destination: View>(
+  func navigation(
     isActive: Binding<Bool>? = nil,
-    destination: @autoclosure @escaping () -> Destination
+    destination: @autoclosure @escaping () -> some View
   ) -> some View {
-    if let isActive = isActive {
+    if let isActive {
       NavigationLink(
         destination: LazyView(content: destination()),
         isActive: isActive
@@ -76,7 +76,7 @@ extension View {
     }
   }
 
-  public func onNavigation(_ action: @escaping () -> Void) -> some View {
+  func onNavigation(_ action: @escaping () -> Void) -> some View {
     let isActive = Binding(
       get: { false },
       set: { newValue in

@@ -1,8 +1,8 @@
 #if os(iOS)
+import Combine
 import SwiftUI
 import UIKit
 import WebKit
-import Combine
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
 public struct Web: UIViewRepresentable {
@@ -72,15 +72,13 @@ public struct Web: UIViewRepresentable {
     return view
   }
 
-  public func updateUIView(_ uiView: WKWebView, context: Context) {
-
-  }
+  public func updateUIView(_ uiView: WKWebView, context: Context) {}
 
   public func makeCoordinator() -> Coordinator {
     .init(base: self)
   }
 
-  final public class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
+  public final class Coordinator: NSObject, WKUIDelegate, WKNavigationDelegate {
     private let base: Web
 
     init(base: Web) {

@@ -24,16 +24,16 @@ public extension Color {
 
   /// 0x3300cc or 0x30c
   init(hex: UInt32, opacity: Double = 1) {
-    let short = hex <= 0xfff
+    let short = hex <= 0xFFF
     let divisor: CGFloat = short ? 15 : 255
-    let red   = CGFloat(short  ? (hex & 0xF00) >> 8 : (hex & 0xFF0000) >> 16) / divisor
-    let green = CGFloat(short  ? (hex & 0x0F0) >> 4 : (hex & 0xFF00)   >> 8)  / divisor
-    let blue  = CGFloat(short  ? (hex & 0x00F)      : (hex & 0xFF))           / divisor
+    let red = CGFloat(short ? (hex & 0xF00) >> 8 : (hex & 0xFF0000) >> 16) / divisor
+    let green = CGFloat(short ? (hex & 0x0F0) >> 4 : (hex & 0xFF00) >> 8) / divisor
+    let blue = CGFloat(short ? (hex & 0x00F) : (hex & 0xFF)) / divisor
     self.init(red: red, green: green, blue: blue, opacity: opacity)
   }
 
   static var random: Color {
-    .init(red: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1))
+    .init(red: .random(in: 0 ... 1), green: .random(in: 0 ... 1), blue: .random(in: 0 ... 1))
   }
 }
 

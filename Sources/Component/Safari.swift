@@ -1,7 +1,7 @@
 #if os(iOS)
-import UIKit
-import SwiftUI
 import SafariServices
+import SwiftUI
+import UIKit
 
 @available(iOS 13.0, *)
 public struct Safari: UIViewControllerRepresentable {
@@ -25,22 +25,21 @@ public struct Safari: UIViewControllerRepresentable {
 
   public func updateUIViewController(
     _ uiViewController: SFSafariViewController,
-    context: UIViewControllerRepresentableContext<Safari>) {
-
-  }
+    context: UIViewControllerRepresentableContext<Safari>
+  ) {}
 
   public func makeCoordinator() -> Coordinator {
     Coordinator(self)
   }
 
-  final public class Coordinator: NSObject, SFSafariViewControllerDelegate {
+  public final class Coordinator: NSObject, SFSafariViewControllerDelegate {
     private let parent: Safari
 
     init(_ parent: Safari) {
       self.parent = parent
     }
 
-    public func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+    public func safariViewControllerDidFinish(_: SFSafariViewController) {
       parent.onFinished?()
     }
   }

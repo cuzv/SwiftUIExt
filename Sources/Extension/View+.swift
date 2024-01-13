@@ -51,9 +51,9 @@ public extension View {
   ///
   /// https://www.objc.io/blog/2021/08/24/conditional-view-modifiers/
   @ViewBuilder
-  func applyIf<Transform: View>(
+  func applyIf(
     _ condition: @autoclosure () -> Bool,
-    transform: (Self) -> Transform
+    transform: (Self) -> some View
   ) -> some View {
     if condition() {
       transform(self)
@@ -66,9 +66,9 @@ public extension View {
   ///
   /// https://www.objc.io/blog/2021/08/24/conditional-view-modifiers/
   @ViewBuilder
-  func applyGotten<Transform: View, T>(
+  func applyGotten<T>(
     _ getter: @autoclosure () -> T?,
-    transform: (Self, T) -> Transform
+    transform: (Self, T) -> some View
   ) -> some View {
     if let v = getter() {
       transform(self, v)
@@ -111,8 +111,8 @@ public extension View {
 
 #if os(iOS)
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
-  public func snapshot() -> UIImage {
+public extension View {
+  func snapshot() -> UIImage {
     let controller = UIHostingController(rootView: self)
     let view = controller.view
 

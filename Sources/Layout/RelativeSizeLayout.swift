@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension View {
+public extension View {
   /// Proposes a percentage of its received proposed size to `self`.
   ///
   /// This modifier multiplies the proposed size it receives from its parent
@@ -15,7 +15,7 @@ extension View {
   ///   VStack and HStack divide the available space among their subviews and
   ///   only propose a fraction to each subview.
   @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
-  public func relativeProposed(width: Double = 1, height: Double = 1) -> some View {
+  func relativeProposed(width: Double = 1, height: Double = 1) -> some View {
     RelativeSizeLayout(relativeWidth: width, relativeHeight: height) {
       // Wrap content view in a container to make sure the layout only
       // receives a single subview.

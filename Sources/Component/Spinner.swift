@@ -12,8 +12,8 @@ public struct Spinner: View {
     lineColor: Color = Color(.blue),
     lineWidth: CGFloat = 4
   ) {
-    self.backgroundColor = circleColor
-    self.foregroundColor = lineColor
+    backgroundColor = circleColor
+    foregroundColor = lineColor
     self.lineWidth = lineWidth
   }
 

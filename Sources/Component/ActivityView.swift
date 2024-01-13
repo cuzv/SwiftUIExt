@@ -1,7 +1,7 @@
 #if os(iOS)
-import UIKit
-import SwiftUI
 import CoreServices
+import SwiftUI
+import UIKit
 
 /// https://gist.github.com/shaps80/8ee53f7e3f07e3cf44f2331775edff98
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
@@ -51,7 +51,7 @@ public struct ActivityView: UIViewControllerRepresentable {
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-final public class ActivityViewControllerWrapper: UIViewController {
+public final class ActivityViewControllerWrapper: UIViewController {
   var activityItems: () -> [Any]
   var applicationActivities: [UIActivity]?
   var isPresented: Binding<Bool>
@@ -69,11 +69,12 @@ final public class ActivityViewControllerWrapper: UIViewController {
     super.init(nibName: nil, bundle: nil)
   }
 
+  @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
-  public override func didMove(toParent parent: UIViewController?) {
+  override public func didMove(toParent parent: UIViewController?) {
     super.didMove(toParent: parent)
     updateState()
   }
@@ -85,7 +86,7 @@ final public class ActivityViewControllerWrapper: UIViewController {
       if !isActivityPresented {
         let controller = UIActivityViewController(activityItems: activityItems(), applicationActivities: applicationActivities)
         controller.popoverPresentationController?.sourceView = view
-        controller.completionWithItemsHandler = { [weak self] (activityType, success, items, error) in
+        controller.completionWithItemsHandler = { [weak self] activityType, success, items, error in
           self?.isPresented.wrappedValue = false
           self?.completion?(activityType, success, items, error)
         }
@@ -96,17 +97,18 @@ final public class ActivityViewControllerWrapper: UIViewController {
 }
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, macCatalyst 13.0, *)
-extension View {
-  public func activity(
+public extension View {
+  func activity(
     contents: Binding<[Any]>,
     activities: [UIActivity]? = nil,
     onComplete: UIActivityViewController.CompletionWithItemsHandler? = nil
   ) -> some View {
     background(
       LazyView(content: ActivityView(
-                items: contents,
-                activities: activities,
-                onComplete: onComplete)
+        items: contents,
+        activities: activities,
+        onComplete: onComplete
+      )
       )
     )
   }
