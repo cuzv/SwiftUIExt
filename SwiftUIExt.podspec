@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 
   s.summary          = s.name
   s.homepage         = 'https://github.com/cuzv'
-  s.license          = 'GPL'
+  s.license          = 'MIT'
   s.author           = 'Shaw'
   s.source           = { :path => '.' }
 
