@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.author           = 'Shaw'
   s.source           = { :path => '.' }
 
-  s.ios.deployment_target = '15.0'
+  s.ios.deployment_target = '13.0'
   s.swift_versions = '5.9'
   s.source_files = 'Sources/**/*.swift'
 end
