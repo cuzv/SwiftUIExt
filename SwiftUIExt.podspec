@@ -11,4 +11,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '13.0'
   s.swift_versions = '5.9'
   s.source_files = 'Sources/**/*.swift'
+
+  s.resource_bundles = {
+    'SwiftUIExt' => ['Resources/PrivacyInfo.xcprivacy']
+  }
 end
